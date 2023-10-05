@@ -10,9 +10,10 @@ import java.util.List;
 public class PileView {
 
   public static final Comparator<Card> COLOR_SUIT_RANK_COMPARATOR =
-     Comparator.comparing(Card::getSuit, Comparator.comparing(Suit::getColor))
-         .thenComparing(Card::getSuit)
-         .thenComparing(Card::getRank);
+     Comparator.comparing((Card card) -> card.getSuit(), Comparator.comparing(
+             suit -> suit.getColor()))
+         .thenComparing(card -> card.getSuit())
+         .thenComparing(card -> card.getRank());
 
 
 
