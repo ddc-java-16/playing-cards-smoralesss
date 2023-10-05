@@ -9,21 +9,11 @@ import java.util.List;
 
 public class PileView {
 
-  public static final Comparator<Card> COLOR_SUIT_RANK_COMPARATOR = new Comparator<Card>() {
-    public int compare(Card card1, Card card2) {
-      Suit suit1 = card1.getSuit();
-      Suit suit2 = card2.getSuit();
-      int comparison = suit1.getColor().compareTo(suit2.getColor());
-      if (comparison == 0) {
-        comparison = suit1.compareTo(suit2);
-        if (comparison == 0) {
-          comparison = card1.getRank().compareTo(card2.getRank());
-        }
-      }
+  public static final Comparator<Card> COLOR_SUIT_RANK_COMPARATOR =
+     Comparator.comparing(Card::getSuit, Comparator.comparing(Suit::getColor))
+         .thenComparing(Card::getSuit)
+         .thenComparing(Card::getRank);
 
-      return comparison;
-    }
-  };
 
 
   public String render(List<Card> cards, Color color) {
